@@ -11,11 +11,45 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "./../redux/action";
+
 export default function Login() {
   const navigate = useNavigate();
+  const toast = useToast();
+  const [form, setForm] = useState({});
+  const dispatch = useDispatch();
+
+  const { isLoading } = useSelector((state) => state);
+  const handleForm = (e) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+  const handleSubmit = () => {
+    dispatch(loginUser(form)).then((res) => {
+      if (res.type === "Login_User_Success") {
+       
+        return navigate("/", { replace: true });
+      } else {
+        toast({
+          position: "top-center",
+          title: res.payload,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    });
+  };
+
   return (
     <Flex
       minH={"100vh"}
@@ -26,7 +60,6 @@ export default function Login() {
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Sign in to your account</Heading>
-         
         </Stack>
         <Box
           rounded={"lg"}
@@ -37,11 +70,19 @@ export default function Login() {
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input
+                type="email"
+                name="email"
+                onChange={(e) => handleForm(e)}
+              />
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input type="password" />
+              <Input
+                type="password"
+                name="password"
+                onChange={(e) => handleForm(e)}
+              />
             </FormControl>
             <Stack spacing={10}>
               <Stack
@@ -58,6 +99,12 @@ export default function Login() {
                 _hover={{
                   bg: "blue.500",
                 }}
+                onClick={(e) => handleSubmit(e)}
+                isLoading={isLoading}
+                loadingText="Sign in"
+                colorScheme="teal"
+                variant="outline"
+                spinnerPlacement="start"
               >
                 Sign in
               </Button>

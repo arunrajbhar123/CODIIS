@@ -10,7 +10,7 @@ const userValidation = async (req, res, next) => {
     });
   }
 
-  var isAdmin = email.split("@")[1].split(".")[0];
+  var isAdmin = email?.split("@")[1]?.split(".")[0];
   if (isAdmin == "codiis") {
     role = "admin";
   } else {
