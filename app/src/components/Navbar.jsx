@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode,useEffect } from "react";
 import {
   Box,
   Flex,
@@ -21,27 +21,31 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import MainRoute from "./../pages/MainRoute";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-const Links = [];
-const NavLink = ({ children }: { children: ReactNode }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={"md"}
-    _hover={{
-      textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
-    }}
-    href={"#"}
-  >
-    {children}
-  </Link>
-);
+import { saveData } from "../utils/localStorage.js";
+import { Link as RouterLink } from "react-router-dom";
+import { sessionUser } from "./../redux/action";
+import { useDispatch } from "react-redux";
+var Links = ["plan", "friends"];
 
+const NavLink = ({ children }) => (
+  <RouterLink to={`/${children}`}>{children}</RouterLink>
+);
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isAuth, data } = useSelector((state) => state);
-
+  const { isAuth, data, token } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  if (data?.role === "admin") {
+    Links = ["upload"];
+  }
   const navigate = useNavigate();
+useEffect(() => {
+  if (isAuth) {
+    if (!data?.name) {
+      dispatch(sessionUser(token));
+    }
+  }
+}, [])
+
   return (
     <>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
@@ -60,9 +64,8 @@ export default function Navbar() {
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
+              {data?.role &&
+                Links.map((link) => <NavLink key={link}>{link}</NavLink>)}
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
@@ -82,9 +85,17 @@ export default function Navbar() {
                 <MenuList>
                   <Text>Hi, {data?.name}</Text>
                   <MenuItem>Email: {data?.email}</MenuItem>
-                  <MenuItem>Current Plan:</MenuItem>
-                  <MenuItem>Friends</MenuItem>
                   <MenuItem>Role: {data?.role}</MenuItem>
+                  <Button
+                    colorScheme="red"
+                    mt="5"
+                    onClick={() => {
+                      saveData("token", "");
+                      saveData("isAuth", "");
+                    }}
+                  >
+                    Logout
+                  </Button>
                 </MenuList>
               </Menu>
             ) : (
