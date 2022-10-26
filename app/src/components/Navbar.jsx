@@ -82,7 +82,7 @@ export default function Navbar() {
                 <MenuList>
                   <Text>Hi, {data?.name}</Text>
                   <MenuItem>Email: {data?.email}</MenuItem>
-                  <MenuItem>Plan:</MenuItem>
+                  <MenuItem>Current Plan:</MenuItem>
                   <MenuItem>Friends</MenuItem>
                   <MenuItem>Role: {data?.role}</MenuItem>
                 </MenuList>
