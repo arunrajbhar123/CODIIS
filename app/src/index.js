@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import { store } from "./redux/store";
 import axios from "axios";
-// axios.defaults.baseURL = "https://mock15word.herokuapp.com";
+axios.defaults.baseURL = "http://localhost:7000/";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
 const root = ReactDOM.createRoot(document.getElementById("root"));
