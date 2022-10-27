@@ -169,3 +169,79 @@ export const getFriendsList = (payload) => (dispatch) => {
     })
     .catch((err) => dispatch({ type: types.Get_Friends_Failure }));
 };
+
+
+export const postPlanList = (payload) => (dispatch) => {
+  dispatch({ type: types.Post_Plan_Request });
+
+  return axios
+    .post(`/plan`, {
+      headers: {
+        token: loadData("token"),
+      },
+    })
+    .then((res) => {
+      if (res.data.status) {
+        return dispatch({
+          type: types.Post_Plan_Success,
+          payload: res.data,
+        });
+      } else {
+        return dispatch({
+          type: types.Post_Plan_Failure,
+          payload: res.data.message,
+        });
+      }
+    })
+    .catch((err) => dispatch({ type: types.Post_Plan_Failure }));
+};
+
+export const postPlanUpdateList = (payload) => (dispatch) => {
+  dispatch({ type: types.Update_Post_Plan_Request });
+
+  return axios
+    .patch(`/plan`, {
+      headers: {
+        token: loadData("token"),
+      },
+    })
+    .then((res) => {
+      if (res.data.status) {
+        return dispatch({
+          type: types.Update_Post_Plan_Success,
+          payload: res.data,
+        });
+      } else {
+        return dispatch({
+          type: types.Update_Post_Plan_Failure,
+          payload: res.data.message,
+        });
+      }
+    })
+    .catch((err) => dispatch({ type: types.Update_Post_Plan_Failure }));
+};
+
+export const postPlanDeleteList = (payload) => (dispatch) => {
+  dispatch({ type: types.Delete_Post_Plan_Request });
+
+  return axios
+    .delete(`/plan`, {
+      headers: {
+        token: loadData("token"),
+      },
+    })
+    .then((res) => {
+      if (res.data.status) {
+        return dispatch({
+          type: types.Delete_Post_Plan_Success,
+          payload: res.data,
+        });
+      } else {
+        return dispatch({
+          type: types.Delete_Post_Plan_Failure,
+          payload: res.data.message,
+        });
+      }
+    })
+    .catch((err) => dispatch({ type: types.Delete_Post_Plan_Failure }));
+};

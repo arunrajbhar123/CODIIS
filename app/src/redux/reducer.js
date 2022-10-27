@@ -131,7 +131,6 @@ export const reducer = (state = initalState, { type, payload }) => {
         isError: false,
       };
     case types.Get_Video_Single_Success:
-     
       return {
         ...state,
         isLoading: false,
@@ -157,6 +156,64 @@ export const reducer = (state = initalState, { type, payload }) => {
         userList: payload.data,
       };
     case types.Get_Friends_Failure:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+      };
+
+    // Post_Plan_Request
+    // Update_Post_Plan_Request
+    // Delete_Post_Plan_Request
+
+    case types.Post_Plan_Request:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case types.Post_Plan_Success:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case types.Post_Plan_Failure:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+      };
+
+    case types.Update_Post_Plan_Request:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case types.Update_Post_Plan_Success:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case types.Update_Post_Plan_Failure:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+      };
+
+    case types.Delete_Post_Plan_Request:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case types.Delete_Post_Plan_Success:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case types.Delete_Post_Plan_Failure:
       return {
         ...state,
         isLoading: false,

@@ -215,18 +215,14 @@ const TableDetails = ({ data }) => {
         </Thead>
         <Tbody>
           {data?.length &&
-            data.map((el) => (
-              <Tr>
+            data.map((el, index) => (
+              <Tr key={index}>
                 <Td>{el.title}</Td>
-                <Td>
-                  <Text maxWidth="325px" noOfLines={1}>
-                    {el.video}
-                  </Text>
+                <Td maxWidth="325px" noOfLines={1}>
+                  {el.video}
                 </Td>
-                <Td>
-                  <Text noOfLines={1} maxWidth="325px">
-                    {el.description}
-                  </Text>
+                <Td noOfLines={1} maxWidth="325px">
+                  {el.description}
                 </Td>
                 <Td>{el.admin_name}</Td>
                 <Td>

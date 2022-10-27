@@ -36,7 +36,7 @@ export default function Navbar() {
   const { isAuth, data, token } = useSelector((state) => state);
   const dispatch = useDispatch();
   if (data?.role === "admin") {
-    Links = ["upload"];
+    Links = ["upload", "postplan"];
   }
   const navigate = useNavigate();
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function Navbar() {
             display={{ md: "none" }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems={"center"}>
+          <HStack spacing={8} alignItems={"center"} zIndex={100}>
             <Box>
               <img
                 style={{ width: "130px" }}

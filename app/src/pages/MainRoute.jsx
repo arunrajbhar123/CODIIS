@@ -9,6 +9,7 @@ import Videolist from "./Videolist";
 import VideoPlay from "./VideoPlay";
 import Friends from "./Friends";
 import PlanDetails from "./../components/PlanDetails";
+import Postplan from './Postplan';
 const MainRoute = () => {
   return (
     <Routes>
@@ -67,6 +68,16 @@ const MainRoute = () => {
           </RequireAuth>
         }
       />
+       <Route
+        path="/postplan"
+        element={
+          <RequireAuth>
+            <Postplan />
+          </RequireAuth>
+        }
+      />
+
+      
     </Routes>
   );
 };
