@@ -37,6 +37,8 @@ export const Update_Post_Plan_Request = "Update_Post_Plan_Request";
 export const Update_Post_Plan_Success = "Update_Post_Plan_Success";
 export const Update_Post_Plan_Failure = "Update_Post_Plan_Failure";
 
+export const Get_Plan_Success = "Get_Plan_Request";
+
 export const Delete_Post_Plan_Request = "Delete_Post_Plan_Request";
 export const Delete_Post_Plan_Success = "Delete_Post_Plan_Success";
 export const Delete_Post_Plan_Failure = "Delete_Post_Plan_Failure";

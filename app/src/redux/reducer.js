@@ -9,6 +9,7 @@ const initalState = {
   video: [],
   singleVideo: [],
   userList: [],
+  plan: [],
 };
 
 export const reducer = (state = initalState, { type, payload }) => {
@@ -219,6 +220,15 @@ export const reducer = (state = initalState, { type, payload }) => {
         isLoading: false,
         isError: false,
       };
+
+    // Get_Plan_Success
+    case types.Get_Plan_Success:
+      return {
+        ...state,
+        isLoading: false,
+        plan: payload.data,
+      };
+
     default:
       return state;
   }

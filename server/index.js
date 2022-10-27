@@ -9,6 +9,7 @@ const signUpUser = require("./routes/signup.User");
 const session = require("./routes/session");
 const videoRouter = require("./routes/video");
 const friendRoute = require("./routes/friends");
+const PlanPost = require("./routes/plan");
 require("dotenv").config();
 app.use(cors());
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use("/signup", signUpUser);
 app.use("/session", session);
 app.use("/video", videoRouter);
 app.use("/friends", friendRoute);
+app.use("/planPost", PlanPost);
 app.get("/", (req, res) => {
   res.send("codiis Assignment");
 });

@@ -149,7 +149,7 @@ export const getFriendsList = (payload) => (dispatch) => {
   dispatch({ type: types.Get_Friends_Request });
 
   return axios
-    .get(`/friends`, {
+    .get("/friends", {
       headers: {
         token: loadData("token"),
       },
@@ -170,12 +170,11 @@ export const getFriendsList = (payload) => (dispatch) => {
     .catch((err) => dispatch({ type: types.Get_Friends_Failure }));
 };
 
-
 export const postPlanList = (payload) => (dispatch) => {
   dispatch({ type: types.Post_Plan_Request });
 
   return axios
-    .post(`/plan`, {
+    .post("/planPost", payload, {
       headers: {
         token: loadData("token"),
       },
@@ -200,7 +199,7 @@ export const postPlanUpdateList = (payload) => (dispatch) => {
   dispatch({ type: types.Update_Post_Plan_Request });
 
   return axios
-    .patch(`/plan`, {
+    .patch("/planPost", {
       headers: {
         token: loadData("token"),
       },
@@ -225,7 +224,7 @@ export const postPlanDeleteList = (payload) => (dispatch) => {
   dispatch({ type: types.Delete_Post_Plan_Request });
 
   return axios
-    .delete(`/plan`, {
+    .delete(`/planPost/${payload}`, {
       headers: {
         token: loadData("token"),
       },
@@ -234,7 +233,6 @@ export const postPlanDeleteList = (payload) => (dispatch) => {
       if (res.data.status) {
         return dispatch({
           type: types.Delete_Post_Plan_Success,
-          payload: res.data,
         });
       } else {
         return dispatch({
@@ -245,3 +243,28 @@ export const postPlanDeleteList = (payload) => (dispatch) => {
     })
     .catch((err) => dispatch({ type: types.Delete_Post_Plan_Failure }));
 };
+
+export const getPlanList = (payload) => (dispatch) => {
+  return axios
+    .get(`/planPost`, {
+      headers: {
+        token: loadData("token"),
+      },
+    })
+    .then((res) => {
+      if (res.data.status) {
+        return dispatch({
+          type: types.Get_Plan_Success,
+          payload: res.data,
+        });
+      } else {
+        return dispatch({
+          type: types.Delete_Post_Plan_Failure,
+          payload: res.data.message,
+        });
+      }
+    })
+    .catch((err) => console.log(err));
+};
+
+// Get_Plan_Success

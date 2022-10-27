@@ -9,6 +9,7 @@ videoRouter.post("/", isAdmin, async (req, res) => {
     title,
     description,
     admin_name: name,
+    plan_id,
   });
   await data.save();
   res.send({ message: "data save ", status: true });
@@ -22,7 +23,7 @@ videoRouter.get("/:id", isAdmin, async (req, res) => {
   const { id, plan_id } = req.params;
 
   const data = await VideoModel.findOne({ id }, {});
-console.log(data);
+
   res.send({ message: "success", status: true, data });
 });
 

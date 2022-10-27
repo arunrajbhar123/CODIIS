@@ -22,15 +22,19 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  FormControl,
+  FormLabel,
+  Select,
 } from "@chakra-ui/react";
-import { getVideo, videoUpload } from "../redux/action.js";
+import { getVideo, videoUpload, getPlanList } from "../redux/action.js";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Upload() {
   const [form, setForm] = useState({});
-  const { video } = useSelector((state) => state);
+  const { video, plan } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const [numberPlan, SetNumberPlan] = useState([]);
   const handleForm = (e) => {
     const { name, value } = e.target;
     setForm({
@@ -42,7 +46,7 @@ export default function Upload() {
   const handleSumit = () => {
     dispatch(videoUpload(form));
   };
-
+  // https://drive.google.com/uc?id=1jn9h5ZdPSEz3_RcIkYutHoBCKJ-_VEZb&%20export=download
   function updateImageDisplay(e) {
     // e.preventDefault()
     e.preventDefault();
@@ -55,6 +59,12 @@ export default function Upload() {
   }
   useEffect(() => {
     dispatch(getVideo());
+
+    dispatch(getPlanList());
+
+    plan?.map((el) => {
+      numberPlan.push(el._id);
+    });
   }, []);
 
   return (
@@ -122,6 +132,14 @@ export default function Upload() {
                 name="description"
                 onChange={(e) => handleForm(e)}
               />
+
+              <FormControl onChange={(e) => handleForm(e)}>
+                <Select name="plan_id" placeholder="plan name">
+                  <option value={numberPlan[0]}>Hobby</option>
+                  <option value={numberPlan[1]}>Growth</option>
+                  <option value={numberPlan[2]}>Scale</option>
+                </Select>
+              </FormControl>
 
               <Input
                 placeholder="Video link"
