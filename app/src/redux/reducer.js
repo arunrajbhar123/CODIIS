@@ -8,6 +8,7 @@ const initalState = {
   user: [],
   video: [],
   singleVideo: [],
+  userList: [],
 };
 
 export const reducer = (state = initalState, { type, payload }) => {
@@ -130,6 +131,7 @@ export const reducer = (state = initalState, { type, payload }) => {
         isError: false,
       };
     case types.Get_Video_Single_Success:
+     
       return {
         ...state,
         isLoading: false,
@@ -142,6 +144,24 @@ export const reducer = (state = initalState, { type, payload }) => {
         isError: false,
       };
 
+    case types.Get_Friends_Request:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case types.Get_Friends_Success:
+      return {
+        ...state,
+        isLoading: false,
+        userList: payload.data,
+      };
+    case types.Get_Friends_Failure:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+      };
     default:
       return state;
   }

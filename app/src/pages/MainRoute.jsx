@@ -7,6 +7,8 @@ import RequireAuth from "./../requireAuth/RequireAuth";
 import Upload from "./Upload";
 import Videolist from "./Videolist";
 import VideoPlay from "./VideoPlay";
+import Friends from "./Friends";
+import PlanDetails from "./../components/PlanDetails";
 const MainRoute = () => {
   return (
     <Routes>
@@ -40,10 +42,28 @@ const MainRoute = () => {
       />
 
       <Route
+        path="/friends"
+        element={
+          <RequireAuth>
+            <Friends />
+          </RequireAuth>
+        }
+      />
+
+      <Route
         path="/"
         element={
           <RequireAuth>
             <Home />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/plan"
+        element={
+          <RequireAuth>
+            <PlanDetails />
           </RequireAuth>
         }
       />

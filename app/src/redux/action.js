@@ -122,9 +122,9 @@ export const getVideo = (payload) => (dispatch) => {
 
 export const getSingleVideo = (payload) => (dispatch) => {
   dispatch({ type: types.Get_Video_Single_Request });
-console.log(payload);
+
   return axios
-    .get("/video/:id", {
+    .get(`/video/${payload.id}`, {
       headers: {
         token: loadData("token"),
       },
@@ -143,4 +143,29 @@ console.log(payload);
       }
     })
     .catch((err) => dispatch({ type: types.Get_Video_Single_Failure }));
+};
+
+export const getFriendsList = (payload) => (dispatch) => {
+  dispatch({ type: types.Get_Friends_Request });
+
+  return axios
+    .get(`/friends`, {
+      headers: {
+        token: loadData("token"),
+      },
+    })
+    .then((res) => {
+      if (res.data.status) {
+        return dispatch({
+          type: types.Get_Friends_Success,
+          payload: res.data,
+        });
+      } else {
+        return dispatch({
+          type: types.Get_Friends_Failure,
+          payload: res.data.message,
+        });
+      }
+    })
+    .catch((err) => dispatch({ type: types.Get_Friends_Failure }));
 };

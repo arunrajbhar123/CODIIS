@@ -19,11 +19,11 @@ videoRouter.get("/", isAdmin, async (req, res) => {
   res.send({ message: "data success", status: true, data });
 });
 videoRouter.get("/:id", isAdmin, async (req, res) => {
-  const { id , plan_id} = req.params;
-  console.log( plan_id);
+  const { id, plan_id } = req.params;
+
   const data = await VideoModel.findOne({ id }, {});
-  console.log(data);
-  res.send("video id");
+console.log(data);
+  res.send({ message: "success", status: true, data });
 });
 
 module.exports = videoRouter;
