@@ -245,6 +245,7 @@ export const postPlanDeleteList = (payload) => (dispatch) => {
 };
 
 export const getPlanList = (payload) => (dispatch) => {
+  dispatch({ type: types.Get_Plan_Request });
   return axios
     .get(`/planPost`, {
       headers: {
@@ -259,12 +260,36 @@ export const getPlanList = (payload) => (dispatch) => {
         });
       } else {
         return dispatch({
-          type: types.Delete_Post_Plan_Failure,
+          type: types.Get_Plan_Failure,
           payload: res.data.message,
         });
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => dispatch({ type: types.Get_Plan_Failure }));
 };
 
-// Get_Plan_Success
+// Buy_Plan_Request
+
+export const BuyPlanList = (payload) => (dispatch) => {
+  dispatch({ type: types.Buy_Plan_Request });
+  return axios
+    .get(`/planPost`, payload, {
+      headers: {
+        token: loadData("token"),
+      },
+    })
+    .then((res) => {
+      if (res.data.status) {
+        return dispatch({
+          type: types.Buy_Plan_Success,
+          payload: res.data,
+        });
+      } else {
+        return dispatch({
+          type: types.Buy_Plan_Failure,
+          payload: res.data.message,
+        });
+      }
+    })
+    .catch((err) => dispatch({ type: types.Buy_Plan_Failure }));
+};

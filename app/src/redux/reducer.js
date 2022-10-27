@@ -221,7 +221,6 @@ export const reducer = (state = initalState, { type, payload }) => {
         isError: false,
       };
 
-    // Get_Plan_Success
     case types.Get_Plan_Success:
       return {
         ...state,
@@ -229,6 +228,12 @@ export const reducer = (state = initalState, { type, payload }) => {
         plan: payload.data,
       };
 
+    // Buy_Plan_Request
+    case types.Buy_Plan_Success:
+      return {
+        ...state,
+        isLoading: false,
+      };
     default:
       return state;
   }

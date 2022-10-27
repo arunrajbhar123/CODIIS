@@ -3,7 +3,7 @@ const videoRouter = express.Router();
 const isAdmin = require("../middleware/isAdmin");
 const VideoModel = require("../model/video.Model");
 videoRouter.post("/", isAdmin, async (req, res) => {
-  const { title, video, description, name } = req.body;
+  const { title, video, description, name,plan_id } = req.body;
   const data = new VideoModel({
     video,
     title,

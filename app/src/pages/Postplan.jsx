@@ -27,7 +27,7 @@ import {
 const Postplan = () => {
   const [form, setForm] = useState({});
   const dispatch = useDispatch();
-  const { plan } = useSelector((state) => state);
+  const { plan, user } = useSelector((state) => state);
   const handleForm = (e) => {
     const { name, value } = e.target;
     setForm({
@@ -38,8 +38,8 @@ const Postplan = () => {
 
   useEffect(() => {
     dispatch(getPlanList());
+   
   }, []);
-
   const handleSubmit = () => {
     const benefits = form?.benefits?.split(",");
     const data = {
