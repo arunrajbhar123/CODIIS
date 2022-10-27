@@ -1,6 +1,6 @@
 import * as types from "./action.type";
 import axios from "axios";
-
+import { loadData } from "../utils/localStorage";
 export const loginUser = (payload) => (dispatch) => {
   dispatch({ type: types.Login_User_Request });
   return axios
@@ -62,4 +62,60 @@ export const sessionUser = (payload) => (dispatch) => {
       }
     })
     .catch((err) => dispatch({ type: types.Session_User_Failure }));
+};
+
+export const videoUpload = (payload) => (dispatch) => {
+  dispatch({ type: types.Video_Upload_Request });
+
+  return axios
+    .post("/video", payload, {
+      headers: {
+        token: loadData("token"),
+      },
+    })
+    .then((res) => {
+      if (res.data.status) {
+        return dispatch({
+          type: types.Video_Upload_Success,
+          payload: res.data,
+        });
+      } else {
+        return dispatch({
+          type: types.Video_Upload_Failure,
+          payload: res.data.message,
+        });
+      }
+    })
+    .catch((err) => dispatch({ type: types.Video_Upload_Failure }));
+};
+
+export const logoutFun = (payload) => (dispatch) => {
+  return dispatch({
+    type: types.Logout_Success,
+  });
+};
+
+export const getVideo = (payload) => (dispatch) => {
+  dispatch({ type: types.Get_Video_Request });
+
+  return axios
+    .get("/video", {
+      headers: {
+        token: loadData("token"),
+      },
+    })
+    .then((res) => {
+      if (res.data.status) {
+        return dispatch({
+          type: types.Get_Video_Success,
+          payload: res.data,
+        });
+      } else {
+        return dispatch({
+          type: types.Get_Video_Failure,
+          payload: res.data.message,
+        });
+      }
+    })
+    .catch((err) => dispatch({ type: types.Get_Video_Failure }));
 };

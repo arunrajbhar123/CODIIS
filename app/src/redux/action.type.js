@@ -11,3 +11,15 @@ export const Session_User_Request="Session_User_Request";
 export const Session_User_Success="Session_User_Success";
 export const Session_User_Failure="Session_User_Failure";
 
+
+export const Video_Upload_Request="Video_Upload_Request";
+export const Video_Upload_Success="Video_Upload_Success";
+export const Video_Upload_Failure="Video_Upload_Failure";
+
+
+export const Logout_Success="Logout_Success";
+
+
+export const Get_Video_Request="Get_Video_Request";
+export const Get_Video_Success="Get_Video_Success";
+export const Get_Video_Failure="Get_Video_Failure";

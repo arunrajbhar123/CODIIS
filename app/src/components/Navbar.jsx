@@ -1,4 +1,4 @@
-import { ReactNode,useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import {
   Box,
   Flex,
@@ -21,10 +21,11 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import MainRoute from "./../pages/MainRoute";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { saveData } from "../utils/localStorage.js";
+
 import { Link as RouterLink } from "react-router-dom";
 import { sessionUser } from "./../redux/action";
 import { useDispatch } from "react-redux";
+import { logoutFun } from "../redux/action.js";
 var Links = ["plan", "friends"];
 
 const NavLink = ({ children }) => (
@@ -38,13 +39,13 @@ export default function Navbar() {
     Links = ["upload"];
   }
   const navigate = useNavigate();
-useEffect(() => {
-  if (isAuth) {
-    if (!data?.name) {
-      dispatch(sessionUser(token));
+  useEffect(() => {
+    if (isAuth) {
+      if (!data?.firstname) {
+        dispatch(sessionUser(token));
+      }
     }
-  }
-}, [])
+  }, []);
 
   return (
     <>
@@ -64,8 +65,9 @@ useEffect(() => {
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
-              {data?.role &&
-                Links.map((link) => <NavLink key={link}>{link}</NavLink>)}
+              {Links.map((link) => (
+                <NavLink key={link}>{link}</NavLink>
+              ))}
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
@@ -79,19 +81,18 @@ useEffect(() => {
                   minW={0}
                 >
                   <Text bg="red" w={35} h={35} p={1} borderRadius={25}>
-                    {data?.name[0].toUpperCase()}
+                    {data?.firstname[0]?.toUpperCase()}
                   </Text>
                 </MenuButton>
                 <MenuList>
-                  <Text>Hi, {data?.name}</Text>
+                  <Text>Hi, {data?.firstname}</Text>
                   <MenuItem>Email: {data?.email}</MenuItem>
                   <MenuItem>Role: {data?.role}</MenuItem>
                   <Button
                     colorScheme="red"
                     mt="5"
                     onClick={() => {
-                      saveData("token", "");
-                      saveData("isAuth", "");
+                      dispatch(logoutFun());
                     }}
                   >
                     Logout

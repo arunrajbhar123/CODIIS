@@ -6,6 +6,7 @@ const initalState = {
   isAuth: loadData("isAuth") || false,
   token: loadData("token") || "",
   user: [],
+  video: [],
 };
 
 export const reducer = (state = initalState, { type, payload }) => {
@@ -76,6 +77,50 @@ export const reducer = (state = initalState, { type, payload }) => {
         isError: false,
       };
 
+    case types.Video_Upload_Request:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case types.Video_Upload_Success:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case types.Video_Upload_Failure:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+      };
+
+    case types.Logout_Success:
+      saveData("token", "");
+      saveData("isAuth", false);
+      return {
+        ...state,
+        isAuth: false,
+      };
+
+    case types.Get_Video_Request:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case types.Get_Video_Success:
+      return {
+        ...state,
+        isLoading: false,
+        video: payload.data,
+      };
+    case types.Get_Video_Failure:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+      };
     default:
       return state;
   }

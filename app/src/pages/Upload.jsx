@@ -23,12 +23,14 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
-
-import { useState } from "react";
+import { getVideo, videoUpload } from "../redux/action.js";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Upload() {
   const [form, setForm] = useState({});
-
+  const { video } = useSelector((state) => state);
+  const dispatch = useDispatch();
   const handleForm = (e) => {
     const { name, value } = e.target;
     setForm({
@@ -38,7 +40,7 @@ export default function Upload() {
   };
 
   const handleSumit = () => {
-    console.log(form);
+    dispatch(videoUpload(form));
   };
 
   function updateImageDisplay(e) {
@@ -51,6 +53,10 @@ export default function Upload() {
       console.log(file);
     }
   }
+  useEffect(() => {
+    dispatch(getVideo());
+  }, []);
+
   return (
     <Box position={"relative"}>
       <Container
@@ -138,7 +144,7 @@ export default function Upload() {
                 color={"gray.800"}
                 accept="video/*"
                 name="video"
-                onChange={(e) => updateImageDisplay(e)}
+                onChange={(e) => handleForm(e)}
               />
             </Stack>
             <Button
@@ -166,7 +172,7 @@ export default function Upload() {
         style={{ filter: "blur(70px)" }}
       />
 
-      <TableDetails />
+      <TableDetails data={video} />
     </Box>
   );
 }
@@ -193,31 +199,44 @@ export const Blur = (props: IconProps) => {
   );
 };
 
-const TableDetails = () => {
+const TableDetails = ({ data }) => {
   return (
-    <TableContainer>
+    <TableContainer p="5">
       <Table variant="simple">
         <Thead>
           <Tr>
             <Th>title</Th>
             <Th>video link</Th>
             <Th>description</Th>
+            <Th>Author</Th>
             <Th>edit</Th>
             <Th>delete</Th>
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>inches</Td>
-            <Td>millimetres (mm)</Td>
-            <Td>25.4</Td>
-            <Td>
-              <Button>Edit</Button>
-            </Td>
-            <Td>
-              <Button colorScheme={"red"}>Delete</Button>
-            </Td>
-          </Tr>
+          {data?.length &&
+            data.map((el) => (
+              <Tr>
+                <Td>{el.title}</Td>
+                <Td>
+                  <Text maxWidth="325px" noOfLines={1}>
+                    {el.video}
+                  </Text>
+                </Td>
+                <Td>
+                  <Text noOfLines={1} maxWidth="325px">
+                    {el.description}
+                  </Text>
+                </Td>
+                <Td>{el.admin_name}</Td>
+                <Td>
+                  <Button>Edit</Button>
+                </Td>
+                <Td>
+                  <Button colorScheme={"red"}>Delete</Button>
+                </Td>
+              </Tr>
+            ))}
         </Tbody>
       </Table>
     </TableContainer>

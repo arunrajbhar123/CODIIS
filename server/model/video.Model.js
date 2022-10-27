@@ -4,7 +4,7 @@ const videoSchema = new mongoose.Schema({
   title: { type: String },
   description: { type: String },
   view: { type: Number },
-  admin_id: { type: String },
+  admin_name: { type: String },
 });
 const VideoModel = mongoose.model("video", videoSchema);
 module.exports = VideoModel;
