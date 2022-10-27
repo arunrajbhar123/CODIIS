@@ -23,3 +23,8 @@ export const Logout_Success="Logout_Success";
 export const Get_Video_Request="Get_Video_Request";
 export const Get_Video_Success="Get_Video_Success";
 export const Get_Video_Failure="Get_Video_Failure";
+
+
+export const Get_Video_Single_Request="Get_Video_Request";
+export const Get_Video_Single_Success="Get_Video_Success";
+export const Get_Video_Single_Failure="Get_Video_Failure";

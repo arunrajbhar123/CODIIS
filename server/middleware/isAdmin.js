@@ -8,12 +8,15 @@ const isAdmin = async (req, res, next) => {
     } else {
       const data = await UserModel.findOne({ email });
       console.log(data.firstname);
-      if (data.role !== "admin") {
-        return res.status(401).send({ message: "Unauthorized", status: false });
-      } else {
-        req.body.name = data.firstname;
-        next();
-      }
+      //   if (data.role !== "admin") {
+      //     return res.status(401).send({ message: "Unauthorized", status: false });
+      //   } else {
+      req.body.name = data?.firstname;
+      req.body.plan_id = data?.plan_id;
+      req.body.role = data?.role;
+
+      next();
+      //   }
     }
   });
 };

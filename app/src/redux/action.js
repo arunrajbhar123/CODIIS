@@ -119,3 +119,28 @@ export const getVideo = (payload) => (dispatch) => {
     })
     .catch((err) => dispatch({ type: types.Get_Video_Failure }));
 };
+
+export const getSingleVideo = (payload) => (dispatch) => {
+  dispatch({ type: types.Get_Video_Single_Request });
+console.log(payload);
+  return axios
+    .get("/video/:id", {
+      headers: {
+        token: loadData("token"),
+      },
+    })
+    .then((res) => {
+      if (res.data.status) {
+        return dispatch({
+          type: types.Get_Video_Single_Success,
+          payload: res.data,
+        });
+      } else {
+        return dispatch({
+          type: types.Get_Video_Single_Failure,
+          payload: res.data.message,
+        });
+      }
+    })
+    .catch((err) => dispatch({ type: types.Get_Video_Single_Failure }));
+};

@@ -7,6 +7,7 @@ const initalState = {
   token: loadData("token") || "",
   user: [],
   video: [],
+  singleVideo: [],
 };
 
 export const reducer = (state = initalState, { type, payload }) => {
@@ -121,6 +122,26 @@ export const reducer = (state = initalState, { type, payload }) => {
         isLoading: false,
         isError: false,
       };
+
+    case types.Get_Video_Single_Request:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case types.Get_Video_Single_Success:
+      return {
+        ...state,
+        isLoading: false,
+        singleVideo: payload.data,
+      };
+    case types.Get_Video_Single_Failure:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+      };
+
     default:
       return state;
   }

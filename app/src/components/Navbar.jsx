@@ -26,7 +26,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { sessionUser } from "./../redux/action";
 import { useDispatch } from "react-redux";
 import { logoutFun } from "../redux/action.js";
-var Links = ["plan", "friends"];
+var Links = ["plan", "friends", "videolist"];
 
 const NavLink = ({ children }) => (
   <RouterLink to={`/${children}`}>{children}</RouterLink>
@@ -59,7 +59,13 @@ export default function Navbar() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={"center"}>
-            <Box>Stream Video</Box>
+            <Box>
+              <img
+                style={{ width: "130px" }}
+                src="https://www.codiis.com/images/codiis22092021tagline.png"
+                alt="logo"
+              />
+            </Box>
             <HStack
               as={"nav"}
               spacing={4}
